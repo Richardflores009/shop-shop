@@ -89,6 +89,6 @@ import {
     }
   };
 
-  export function useProductReducer(initialState) {
+  export default function useProductReducer(initialState) {
     return useReducer(reducer, initialState);
   }
