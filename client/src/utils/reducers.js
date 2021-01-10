@@ -79,11 +79,11 @@ import {
             cart: []
           };
 
-          // case TOGGLE_CART:
-          // return {
-          // ...state,
-          //   cartOpen: !state.cartOpen
-          // };
+          case TOGGLE_CART:
+          return {
+          ...state,
+            cartOpen: !state.cartOpen
+          };
 
 
     }

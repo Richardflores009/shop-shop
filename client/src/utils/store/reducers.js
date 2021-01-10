@@ -19,7 +19,6 @@ const initialState = {
         categories: [],
         currentCategory: '',
   };
-  console.log(initialState)
   export const shopReducer = (state = initialState, action) => {
     
     switch (action.type) {

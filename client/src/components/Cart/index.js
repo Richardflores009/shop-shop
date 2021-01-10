@@ -6,17 +6,13 @@ import { QUERY_CHECKOUT } from '../../utils/queries';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/react-hooks';
 
-
-import { useStoreContext } from '../../utils/GlobalState';
-import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from "../../utils/actions";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addMultipleToCart, toggleCart } from "../../utils/store/actions";
 import { idbPromise } from "../../utils/helpers";
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
-    // const [state, dispatch] = useStoreContext();
+  
     const dispatch = useDispatch()
     const cart = useSelector(state=> state.reducer.cart)
     const cartOpen = useSelector(state=> state.reducer.cartOpen)
@@ -30,7 +26,7 @@ const Cart = () => {
     useEffect(() => {
       async function getCart() {
         const carts = await idbPromise('cart', 'get');
-        // dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+    
         dispatch(addMultipleToCart(carts));
       };
       
@@ -46,12 +42,6 @@ const Cart = () => {
         });
       }
     }, [data]);
-
-function toggleCarts(state) {
-  dispatch(toggleCart());
-  
-}
-
 
 
 function calculateTotal() {

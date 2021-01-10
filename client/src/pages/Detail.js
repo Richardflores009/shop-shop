@@ -7,37 +7,26 @@ import { idbPromise } from "../utils/helpers";
 import { QUERY_PRODUCTS } from "../utils/queries";
 import spinner from '../assets/spinner.gif'
 
-import { useStoreContext } from "../utils/GlobalState";
-import { UPDATE_PRODUCTS, REMOVE_FROM_CART, ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProducts, removeFromCarts, addToCart, updateCartQuantity } from "../utils/store/actions";
 
 
 
 function Detail() {
-  // const [state, dispatch] = useStoreContext();
 const { id } = useParams();
 
 const [currentProduct, setCurrentProduct] = useState({})
 
 const { loading, data } = useQuery(QUERY_PRODUCTS);
 
-// const { products, cart } = state;
 const dispatch = useDispatch();
 const products = useSelector(state => state.reducer.products)
 const cart = useSelector(state => state.reducer.cart)
 
 const addToCarts = () => {
-  
-  console.log('id', id, 'cart', cart)
   const itemInCart = cart.find((cartItem) => cartItem._id === id)
 
   if (itemInCart) {
-    // dispatch({
-    //   type: UPDATE_CART_QUANTITY,
-    //   purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-    //   _id: id,
-    // });
     const cartQuantity = parseInt(itemInCart.purchaseQuantity) + 1
     dispatch(updateCartQuantity(id, cartQuantity))
     // if we're updating quantity, use existing item data and increment purchaseQuantity value by one
@@ -47,10 +36,6 @@ const addToCarts = () => {
     });
     
   } else {
-    // dispatch({
-    //   type: ADD_TO_CART,
-    //   product: { ...currentProduct, purchaseQuantity: 1 }
-    // });
     dispatch(addToCart(currentProduct, 1))
     
     
@@ -60,10 +45,6 @@ const addToCarts = () => {
 }
 
 const removeFromCart = () => {
-  // dispatch({
-  //   type: REMOVE_FROM_CART,
-  // });
-  //   _id: currentProduct._id
 
   dispatch(removeFromCarts(currentProduct))
 
@@ -75,18 +56,11 @@ const removeFromCart = () => {
 useEffect(() => {
   // already in global store
   if (products.length) {
-    console.log(products)
     setCurrentProduct(products.find(product => product._id === id));
   } 
   // retrieved from server
   else if (data) {
-    // dispatch({
-    //   type: UPDATE_PRODUCTS,
-    //   products: data.products
-    // });
-
     dispatch(updateProducts(data.products))
-    console.log(data)
     data.products.forEach((product) => {
       idbPromise('products', 'put', product);
     });
@@ -94,11 +68,6 @@ useEffect(() => {
   // get cache from idb
   else if (!loading) {
     idbPromise('products', 'get').then((indexedProducts) => {
-      // dispatch({
-      //   type: UPDATE_PRODUCTS,
-      //   products: indexedProducts
-      // });
-
       dispatch(updateProducts(indexedProducts))
     });
   }
