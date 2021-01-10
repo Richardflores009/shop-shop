@@ -41,7 +41,7 @@ Github Repository: https://github.com/Richardflores009/shop-shop <br>
 
 ## Screenshots:
 
-![](assets/img/Screen Shot 2021-01-10 at 4.12.37 PM.png)
+![](https://raw.githubusercontent.com/Richardflores009/shop-shop/main/assets/img/Screen%20Shot%202021-01-10%20at%204.12.37%20PM.png)
 
 ## Questions:
 Contact me:<br>
