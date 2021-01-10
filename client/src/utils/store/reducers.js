@@ -8,7 +8,8 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
   CLEAR_CART,
-  TOGGLE_CART
+  TOGGLE_CART,
+  HIDE_CART
 } from './actions';
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
         cart: [],
         cartOpen: false,
         categories: [],
-        currentCategory: ''
+        currentCategory: '',
   };
   console.log(initialState)
   export const shopReducer = (state = initialState, action) => {
@@ -92,7 +93,12 @@ const initialState = {
           ...state,
             cartOpen: !state.cartOpen
           };
-
+          
+          case HIDE_CART:
+          return {
+          ...state,
+            cartOpen: !state.cartOpen
+          };
 
     }
   };

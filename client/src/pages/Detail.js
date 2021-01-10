@@ -38,8 +38,8 @@ const addToCarts = () => {
     //   purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
     //   _id: id,
     // });
-
-    dispatch(updateCartQuantity(id, itemInCart + 1))
+    const cartQuantity = parseInt(itemInCart.purchaseQuantity) + 1
+    dispatch(updateCartQuantity(id, cartQuantity))
     // if we're updating quantity, use existing item data and increment purchaseQuantity value by one
     idbPromise('cart', 'put', {
       ...itemInCart,
@@ -47,10 +47,10 @@ const addToCarts = () => {
     });
     
   } else {
-    dispatch({
-      type: ADD_TO_CART,
-      product: { ...currentProduct, purchaseQuantity: 1 }
-    });
+    // dispatch({
+    //   type: ADD_TO_CART,
+    //   product: { ...currentProduct, purchaseQuantity: 1 }
+    // });
     dispatch(addToCart(currentProduct, 1))
     
     

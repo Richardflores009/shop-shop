@@ -19,20 +19,26 @@ const Cart = () => {
     // const [state, dispatch] = useStoreContext();
     const dispatch = useDispatch()
     const cart = useSelector(state=> state.reducer.cart)
+    const cartOpen = useSelector(state=> state.reducer.cartOpen)
+ 
+    
+    
+    
+    
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-
+    
     useEffect(() => {
       async function getCart() {
-        // const cart = await idbPromise('cart', 'get');
+        const carts = await idbPromise('cart', 'get');
         // dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
-        dispatch(addMultipleToCart(cart));
+        dispatch(addMultipleToCart(carts));
       };
-    
+      
       if (!cart.length) {
         getCart();
       }
     }, [cart.length, dispatch]);
-
+    
     useEffect(() => {
       if (data) {
         stripePromise.then((res) => {
@@ -41,10 +47,12 @@ const Cart = () => {
       }
     }, [data]);
 
-function toggleCarts() {
+function toggleCarts(state) {
   dispatch(toggleCart());
-  console.log(cart)
+  
 }
+
+
 
 function calculateTotal() {
     let sum = 0;
@@ -68,9 +76,9 @@ function submitCheckout() {
   });
 }
 
-if (!cart.cartOpen) {
+if (!cartOpen) {
     return (
-      <div className="cart-closed" onClick={toggleCarts}>
+      <div className="cart-closed" onClick={ () =>  dispatch(toggleCart())}>
         <span
           role="img"
           aria-label="trash">🛒</span>
@@ -80,7 +88,7 @@ if (!cart.cartOpen) {
 
   return (
     <div className="cart">
-  <div className="close" onClick={toggleCarts}>[close]</div>
+  <div className="close" onClick={ () =>  dispatch(toggleCart())}>[close]</div>
   <h2>Shopping Cart</h2>
   {cart.length ? (
     <div>

@@ -24,16 +24,17 @@ function ProductItem(item) {
   // const { cart } = state;
   const cart = useSelector(state=> state.reducer.cart)
 
-  const addToCarts = () => {
-    console.log(cart)
+  const addToCarts = (e) => {
     const itemInCart = cart.find((cartItem) => cartItem._id === _id)
     if (itemInCart) {
+
       // dispatch({
       //   type: UPDATE_CART_QUANTITY,
       //   _id: _id,
       //   purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       // });
-      dispatch(updateCartQuantity(_id, itemInCart + 1 ))
+      const cartItem = itemInCart.purchaseQuantity + 1
+      dispatch(updateCartQuantity(_id, cartItem ))
       idbPromise('cart', 'put', {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1

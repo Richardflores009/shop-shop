@@ -7,6 +7,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_QUANTITY = 'UPDATE_CART_QUANTITY';
 export const CLEAR_CART = 'CLEAR_CART';
 export const TOGGLE_CART = 'TOGGLE_CART';
+export const HIDE_CART = 'HIDE_CART';
 
 
 export const updateProducts = (product) => {
@@ -17,15 +18,17 @@ export const updateProducts = (product) => {
     };
 };
 
-export const updateCategories = () => {
+export const updateCategories = (category) => {
     return {
-        type: 'UPDATE_CATEGORIES'
+        type: 'UPDATE_CATEGORIES',
+        categories: [...category]
     };
 };
 
-export const updateCurrentCategory = () => {
+export const updateCurrentCategory = (id) => {
     return {
-        type: 'UPDATE_CURRENT_CATEGORY'
+        type: 'UPDATE_CURRENT_CATEGORY',
+        currentCategory: id
     };
 };
 
@@ -55,7 +58,7 @@ export const removeFromCarts = (item) => {
 export const updateCartQuantity = (item, value) => {
     return {
         type: 'UPDATE_CART_QUANTITY',
-        _id: item._id,
+        _id: item,
         purchaseQuantity: parseInt(value)
     };
 };
@@ -66,8 +69,15 @@ export const clearCart = () => {
     };
 };
 
-export const toggleCart = () => {
+export const toggleCart = (state) => {
     return {
-        type: 'TOGGLE_CART'
+        type: 'TOGGLE_CART',
+        cartOpen: state
+    };
+};
+
+export const hideCart = () => {
+    return {
+        type: 'HIDE_CART'
     };
 };
