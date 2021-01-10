@@ -41,8 +41,8 @@ return (
     {categories.map(item => (
       <button
         key={item._id}
-        onClick={(e) => {
-          handleClick(e, item._id);
+        onClick={() => {
+          handleClick(item._id);
         }}
       >
         {item.name}
