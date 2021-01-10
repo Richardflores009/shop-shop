@@ -1,5 +1,4 @@
-import { useReducer } from 'react';
-
+import {combineReducers} from 'redux';
 import {
   UPDATE_PRODUCTS,
   UPDATE_CATEGORIES,
@@ -11,8 +10,17 @@ import {
   CLEAR_CART,
   TOGGLE_CART
 } from './actions';
-  
-  export const reducer = (state, action) => {
+
+const initialState = {
+    products: [],
+        cart: [],
+        cartOpen: false,
+        categories: [],
+        currentCategory: ''
+  };
+  console.log(initialState)
+  export const shopReducer = (state = initialState, action) => {
+    
     switch (action.type) {
       // if action type value is the value of `UPDATE_PRODUCTS`, return a new state object with an updated products array
       case UPDATE_PRODUCTS:
@@ -89,6 +97,10 @@ import {
     }
   };
 
-  export function useProductReducer(initialState) {
-    return useReducer(reducer, initialState);
-  }
+  const allReducers = combineReducers({
+    reducer : shopReducer
+    
+})
+
+  export default allReducers;
+  
